@@ -1,0 +1,97 @@
+!
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname CiscoRouter3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+! card type command needed for slot/vwic-slot 0/0
+enable secret 5 $1$eAw4$YbNz0c/MFk4PtQH4NlNkJ0
+!
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+dot11 syslog
+ip source-route
+!
+!
+ip cef
+!
+!
+!
+no ip domain lookup
+ip domain name domain.com
+multilink bundle-name authenticated
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+!
+!
+license udi pid CISCO2811 sn FTX1147A1JJ
+username admin password 7 01100F175804
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+interface FastEthernet0/0
+ description connection to Switch gig1/0/9
+ ip address 10.1.1.30 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ description connection to Switch f/0/3/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Serial0/1/0
+ no ip address
+ shutdown
+ no fair-queue
+!
+router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+line aux 0
+line vty 0 4
+ password 7 060506324F41
+ transport input ssh
+line vty 5 15
+ password 7 060506324F41
+ transport input ssh
+!
+scheduler allocate 20000 1000
+end

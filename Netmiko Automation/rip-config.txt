@@ -1,0 +1,7 @@
+ip ssh version 2
+router rip
+version 2
+net 10.0.0.0
+net 192.168.0.0
+distance 150
+redistribute ospf 1
